@@ -1,26 +1,25 @@
 package com.uni.secprog;
 
-import com.uni.secprog.builders.TuringMachineBuilder;
-import com.uni.secprog.builders.StringFileBuilderTuring;
-import com.uni.secprog.loaders.FileLoader;
+import com.uni.secprog.builders.BuilderException;
+import com.uni.secprog.loaders.*;
 import com.uni.secprog.printers.StringPrinter;
 
-import java.util.stream.Stream;
+import java.util.Objects;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BuilderException, LoaderException {
 
         if (args.length == 0) {
-            throw new RuntimeException("No file given");
+            throw new RuntimeException("No file given\n\nUsage: tm.jar file [--remote]");
         }
 
-        FileLoader loader = new FileLoader();
-        Stream<String> instructions = loader.load(args[0]);
+        boolean remote = false;
+        if (args.length > 1 && Objects.equals(args[1], "--remote")) {
+            remote = true;
+        }
 
-        // this should be refactored.
-        TuringMachineBuilder builder = new StringFileBuilderTuring();
-        TuringMachine tm = builder.build(instructions);
-
+        TuringMachineFactory factory = new TuringMachineFactory();
+        TuringMachine tm = factory.build(remote, args[0]);
         StringPrinter printer = new StringPrinter();
 
         while (true) {

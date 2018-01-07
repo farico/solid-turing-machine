@@ -7,5 +7,5 @@ import java.util.stream.Stream;
  */
 public interface ILoader
 {
-    Stream<String> load(String target);
+    Stream<String> load(String target) throws LoaderException;
 }

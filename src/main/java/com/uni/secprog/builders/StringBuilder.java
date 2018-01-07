@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * Created by Aivaras Voveris on 2018-01-07.
  */
-public class StringFileBuilderTuring implements TuringMachineBuilder {
+public class StringBuilder implements TuringMachineBuilder {
 
     @Override
     public TuringMachine build(Stream<String> lines) {
